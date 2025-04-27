@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaCode, FaBalanceScale, FaPaintBrush, FaServer, FaDatabase, FaMobileAlt, FaLock, FaSearch, FaFileContract } from "react-icons/fa";
 import { SiTypescript, SiReact, SiNodedotjs, SiThreedotjs, SiTailwindcss } from "react-icons/si";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -149,17 +148,30 @@ const Skills = () => {
     }
   }, [inView, activeCategory]);
 
-  // Card flip animation variants
-  const cardVariants = {
-    front: {
-      rotateY: 0,
-      transition: { duration: 0.5 }
-    },
-    back: {
-      rotateY: 180,
-      transition: { duration: 0.5 }
-    }
-  };
+  // Add CSS card flip class 
+  useEffect(() => {
+    // Add CSS for card flip animation
+    const style = document.createElement('style');
+    style.textContent = `
+      .transform-style-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      .transform.rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+      .is-flipped .card-inner {
+        transform: rotateY(180deg);
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   return (
     <section id="skills" className="relative min-h-screen flex items-center px-6 md:px-10 py-24">
@@ -268,37 +280,32 @@ const Skills = () => {
         <h3 className="text-xl font-heading font-semibold text-white mt-20 mb-8">Areas of Expertise</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillsData.expertise.slice(0, visibleCards).map((item, index) => (
-            <motion.div 
+            <div 
               key={index}
-              className="expertise-card perspective relative h-[280px] cursor-pointer"
-              initial="front"
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover="back"
+              className="expertise-card relative h-[280px] cursor-pointer transition-all duration-300 hover:scale-105"
+              onClick={(e) => {
+                const card = e.currentTarget;
+                card.classList.toggle('is-flipped');
+              }}
             >
-              <motion.div 
-                className={`expertise-card-front absolute w-full h-full p-6 rounded-lg shadow-lg bg-gradient-to-br ${item.color} backface-hidden`}
-                variants={cardVariants}
-              >
-                <div className="text-white mb-6 mt-4 flex justify-center">
-                  {item.icon}
+              <div className="card-inner relative w-full h-full transition-transform duration-700 transform-style-3d">
+                <div className={`card-front absolute w-full h-full p-6 rounded-lg shadow-lg bg-gradient-to-br ${item.color} backface-hidden`}>
+                  <div className="text-white mb-6 mt-4 flex justify-center">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-heading font-semibold text-white mb-3 text-center">{item.title}</h3>
+                  <p className="text-navy-dark text-center font-medium">Click to learn more</p>
                 </div>
-                <h3 className="text-xl font-heading font-semibold text-white mb-3 text-center">{item.title}</h3>
-                <p className="text-navy-dark text-center font-medium">Click to learn more</p>
-              </motion.div>
-              
-              <motion.div 
-                className="expertise-card-back absolute w-full h-full p-6 rounded-lg shadow-lg bg-navy-dark border border-gold backface-hidden"
-                variants={cardVariants}
-                initial={{ rotateY: 180 }}
-              >
-                <h3 className="text-lg font-heading font-semibold text-gold mb-4">{item.title}</h3>
-                <p className="text-slate-light">{item.description}</p>
-                <div className="absolute bottom-4 right-4 text-gold">
-                  <span className="text-xs">Click to flip back</span>
+                
+                <div className="card-back absolute w-full h-full p-6 rounded-lg shadow-lg bg-navy-dark border border-gold backface-hidden transform rotate-y-180">
+                  <h3 className="text-lg font-heading font-semibold text-gold mb-4">{item.title}</h3>
+                  <p className="text-slate-light">{item.description}</p>
+                  <div className="absolute bottom-4 right-4 text-gold">
+                    <span className="text-xs">Click to flip back</span>
+                  </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           ))}
         </div>
         
