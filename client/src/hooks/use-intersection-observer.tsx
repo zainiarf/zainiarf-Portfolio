@@ -13,7 +13,7 @@ export const useIntersectionObserver = ({
 }: UseIntersectionObserverProps = {}) => {
   const [inView, setInView] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
-  const ref = useRef<Element | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // If the element ref isn't set yet or has already been triggered once, return early

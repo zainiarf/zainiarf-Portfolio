@@ -163,7 +163,7 @@ const Skills = () => {
 
   return (
     <section id="skills" className="relative min-h-screen flex items-center px-6 md:px-10 py-24">
-      <div ref={ref} className="max-w-6xl mx-auto w-full">
+      <div className="max-w-6xl mx-auto w-full" ref={ref}>
         <h2 className="section-heading text-2xl sm:text-3xl font-heading font-bold mb-16">
           <span className="text-gold font-mono text-xl mr-2 opacity-90">02.</span>
           Skills & Expertise
@@ -271,11 +271,10 @@ const Skills = () => {
             <motion.div 
               key={index}
               className="expertise-card perspective relative h-[280px] cursor-pointer"
-              initial={{ opacity: 0, y: 50 }}
+              initial="front"
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover="back"
-              initial="front"
             >
               <motion.div 
                 className={`expertise-card-front absolute w-full h-full p-6 rounded-lg shadow-lg bg-gradient-to-br ${item.color} backface-hidden`}
