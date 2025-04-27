@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { motion } from "framer-motion"; // Added Framer Motion import
 
 import { 
   FaEnvelope, 
@@ -35,46 +36,46 @@ const Contact = () => {
   const { ref, inView } = useIntersectionObserver({ threshold: 0.1 });
   const { toast } = useToast();
   const contactMapRef = useRef<HTMLDivElement>(null);
-  
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: ""
   });
-  
+
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [formTouched, setFormTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [activeField, setActiveField] = useState<string | null>(null);
-  
+
   // Field focus animations
   const handleFocus = (fieldId: string) => {
     setActiveField(fieldId);
   };
-  
+
   const handleBlur = (fieldId: string) => {
     setActiveField(null);
     setFormTouched({ ...formTouched, [fieldId]: true });
     validateField(fieldId, formData[fieldId as keyof FormData]);
   };
-  
+
   // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
-    
+
     // Clear error when typing if field was previously marked as error
     if (formErrors[id as keyof FormErrors]) {
       setFormErrors(prev => ({ ...prev, [id]: undefined }));
     }
   };
-  
+
   // Validate a single field
   const validateField = (field: string, value: string) => {
     let error = "";
-    
+
     switch (field) {
       case "name":
         if (!value.trim()) {
@@ -100,11 +101,11 @@ const Contact = () => {
       default:
         break;
     }
-    
+
     setFormErrors(prev => ({ ...prev, [field]: error || undefined }));
     return !error;
   };
-  
+
   // Validate all form fields
   const validateForm = () => {
     const fieldValidations = {
@@ -112,7 +113,7 @@ const Contact = () => {
       email: validateField("email", formData.email),
       message: validateField("message", formData.message)
     };
-    
+
     // Mark all fields as touched for visual feedback
     setFormTouched({
       name: true,
@@ -120,14 +121,14 @@ const Contact = () => {
       subject: true,
       message: true
     });
-    
+
     return Object.values(fieldValidations).every(isValid => isValid);
   };
-  
+
   // Handle form submission with Formspree
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       toast({
         title: "Form Error",
@@ -136,10 +137,10 @@ const Contact = () => {
       });
       return;
     }
-    
+
     setIsSubmitting(true);
     setSubmitStatus("loading");
-    
+
     try {
       // Submit form to Formspree
       const response = await fetch("https://formspree.io/f/mwpokzly", {
@@ -149,17 +150,17 @@ const Contact = () => {
         },
         body: JSON.stringify(formData),
       });
-      
+
       if (!response.ok) {
         throw new Error("Failed to submit form");
       }
-      
+
       setSubmitStatus("success");
       toast({
         title: "Message Sent!",
         description: "Your message has been sent successfully. I'll get back to you soon!",
       });
-      
+
       // Reset form after successful submission
       setTimeout(() => {
         setFormData({
@@ -171,7 +172,7 @@ const Contact = () => {
         setFormTouched({});
         setSubmitStatus("idle");
       }, 2000);
-      
+
     } catch (error) {
       setSubmitStatus("error");
       toast({
@@ -179,7 +180,7 @@ const Contact = () => {
         description: "There was a problem sending your message. Please try again later.",
         variant: "destructive"
       });
-      
+
       setTimeout(() => {
         setSubmitStatus("idle");
       }, 2000);
@@ -187,33 +188,33 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-  
+
   // Interactive background effect for contact section
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!ref.current) return;
-      
+
       const rect = ref.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      
+
       gsap.to(".contact-gradient", {
         background: `radial-gradient(circle at ${x * 100 + 50}% ${y * 100 + 50}%, rgba(255, 215, 0, 0.08), rgba(0, 0, 0, 0) 70%)`,
         duration: 0.5
       });
     };
-    
+
     if (ref.current) {
       ref.current.addEventListener("mousemove", handleMouseMove);
     }
-    
+
     return () => {
       if (ref.current) {
         ref.current.removeEventListener("mousemove", handleMouseMove);
       }
     };
   }, [ref]);
-  
+
   // Animate content when in view
   useEffect(() => {
     if (inView) {
@@ -227,7 +228,7 @@ const Contact = () => {
           ease: "power2.out" 
         }
       );
-      
+
       gsap.fromTo(
         ".contact-form",
         { opacity: 0, y: 50 },
@@ -239,7 +240,7 @@ const Contact = () => {
           ease: "power2.out" 
         }
       );
-      
+
       gsap.fromTo(
         ".contact-info",
         { opacity: 0, y: 50 },
@@ -251,7 +252,7 @@ const Contact = () => {
           ease: "power2.out" 
         }
       );
-      
+
       // Particle-like dots animation
       gsap.fromTo(
         ".particle",
@@ -303,10 +304,10 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative min-h-screen flex items-center px-6 md:px-10 py-24 overflow-hidden">
+    <motion.section id="contact" className="relative min-h-screen flex items-center px-6 md:px-10 py-24 overflow-hidden"> {/* Wrapped section with motion */}
       {/* Interactive background gradient */}
       <div className="contact-gradient absolute inset-0 opacity-30 pointer-events-none"></div>
-      
+
       {/* Decorative particles */}
       {[...Array(15)].map((_, i) => (
         <div 
@@ -319,20 +320,20 @@ const Contact = () => {
           }}
         ></div>
       ))}
-      
+
       <div ref={ref} className="max-w-5xl mx-auto w-full text-center relative z-10">
         <p className="contact-content text-gold font-mono mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>
           04. What's Next?
         </p>
-        
+
         <h2 className="contact-content text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 animate-fade-in" style={{animationDelay: '0.2s'}}>
           Get In Touch
         </h2>
-        
+
         <p className="contact-content text-slate-light max-w-2xl mx-auto mb-12 animate-fade-in" style={{animationDelay: '0.3s'}}>
           I'm currently looking for new opportunities where I can combine my legal background with my passion for technology. Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
         </p>
-        
+
         <div className="grid md:grid-cols-2 gap-10 text-left">
           <div className="contact-form order-2 md:order-1">
             <form 
@@ -370,7 +371,7 @@ const Contact = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="mb-5">
                 <label htmlFor="email" className="block text-slate mb-2 font-mono text-sm flex justify-between">
                   <span>Email <span className="text-gold">*</span></span>
@@ -396,7 +397,7 @@ const Contact = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="mb-5">
                 <label htmlFor="subject" className="block text-slate mb-2 font-mono text-sm">Subject</label>
                 <div className="relative">
@@ -416,7 +417,7 @@ const Contact = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="mb-6">
                 <label htmlFor="message" className="block text-slate mb-2 font-mono text-sm flex justify-between">
                   <span>Message <span className="text-gold">*</span></span>
@@ -447,7 +448,7 @@ const Contact = () => {
                   </span>
                 </div>
               </div>
-              
+
               <button 
                 type="submit" 
                 className={`w-full font-mono py-3 px-6 border-2 rounded-md flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-70 mobile-touch-feedback
@@ -471,11 +472,11 @@ const Contact = () => {
               </button>
             </form>
           </div>
-          
+
           <div className="contact-info order-1 md:order-2">
             <div className="bg-navy-light bg-opacity-40 backdrop-blur-sm p-8 rounded-lg shadow-lg h-full border border-navy-light">
               <h3 className="text-xl font-heading font-semibold text-white mb-6">Contact Information</h3>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start contact-item hover:translate-x-1 transition-transform duration-300">
                   <div className="text-gold mr-4 mt-1">
@@ -492,7 +493,7 @@ const Contact = () => {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start contact-item hover:translate-x-1 transition-transform duration-300">
                   <div className="text-gold mr-4 mt-1">
                     <FaMapMarkerAlt />
@@ -502,7 +503,7 @@ const Contact = () => {
                     <p className="text-white">Jakarta, Indonesia</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start contact-item hover:translate-x-1 transition-transform duration-300">
                   <div className="text-gold mr-4 mt-1">
                     <FaPhoneAlt />
@@ -518,7 +519,7 @@ const Contact = () => {
                     </a>
                   </div>
                 </div>
-                
+
                 {/* Map visualization - mobile friendly */}
                 <div className="pt-4 relative">
                   <div className="rounded-lg overflow-hidden h-[180px] relative" ref={contactMapRef}>
@@ -535,7 +536,7 @@ const Contact = () => {
                     ></iframe>
                   </div>
                 </div>
-                
+
                 <div className="pt-4">
                   <p className="font-mono text-sm text-slate mb-3">Social Media</p>
                   <div className="flex space-x-4">
@@ -560,7 +561,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Mobile-friendly quick contact options */}
             <div className="mt-5 flex flex-wrap gap-3 md:hidden">
               <a
@@ -585,7 +586,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

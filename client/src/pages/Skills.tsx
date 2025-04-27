@@ -66,13 +66,59 @@ const skillsData = {
       icon: <FaMobileAlt className="text-4xl" />,
       title: "Mobile Development",
       description: "Building cross-platform mobile applications with responsive design and native-like performance.",
-      color: "from-red-500 to-orange-400"
-    },
-    {
-      icon: <FaServer className="text-4xl" />,
-      title: "Backend Development",
-      description: "Creating secure, scalable server-side applications with RESTful API architecture.",
-      color: "from-indigo-500 to-blue-400"
+      color: "from-red-500 to-orange-import { motion } from "framer-motion";
+
+const Skills = () => {
+  return (
+    <motion.section 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="min-h-screen">
+      <div className="container mx-auto px-4 py-16">
+        <h1 className="text-4xl font-bold mb-8">Skills & Expertise</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Technical Skills</h2>
+            {TECHNICAL_SKILLS.map((skill, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex justify-between mb-2">
+                  <span>{skill.name}</span>
+                  <span>{skill.percentage}%</span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded">
+                  <div 
+                    className="h-full bg-blue-600 rounded" 
+                    style={{ width: `${skill.percentage}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Legal Skills</h2>
+            {LEGAL_SKILLS.map((skill, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex justify-between mb-2">
+                  <span>{skill.name}</span>
+                  <span>{skill.percentage}%</span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded">
+                  <div 
+                    className="h-full bg-gold rounded" 
+                    style={{ width: `${skill.percentage}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+};
+
+export default Skills;o-blue-400"
     }
   ]
 };
