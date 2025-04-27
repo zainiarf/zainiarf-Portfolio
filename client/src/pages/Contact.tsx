@@ -124,7 +124,7 @@ const Contact = () => {
     return Object.values(fieldValidations).every(isValid => isValid);
   };
   
-  // Handle form submission
+  // Handle form submission with Formspree
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -141,7 +141,18 @@ const Contact = () => {
     setSubmitStatus("loading");
     
     try {
-      await apiRequest("POST", "/api/contact", formData);
+      // Submit form to Formspree
+      const response = await fetch("https://formspree.io/f/mwpokzly", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
       
       setSubmitStatus("success");
       toast({
@@ -342,7 +353,14 @@ const Contact = () => {
         
         <div className="grid md:grid-cols-2 gap-10 text-left">
           <div className="contact-form order-2 md:order-1">
-            <form onSubmit={handleSubmit} className="rounded-lg bg-navy-light bg-opacity-40 backdrop-blur-sm p-6 shadow-lg border border-navy-light">
+            <form 
+              onSubmit={handleSubmit} 
+              className="rounded-lg bg-navy-light bg-opacity-40 backdrop-blur-sm p-6 shadow-lg border border-navy-light"
+              action="https://formspree.io/f/mwpokzly"
+              method="POST"
+            >
+              {/* Hidden field for Formspree */}
+              <input type="hidden" name="_subject" value="New contact from portfolio website" />
               <div className="mb-5">
                 <label htmlFor="name" className="block text-slate mb-2 font-mono text-sm flex justify-between">
                   <span>Name <span className="text-gold">*</span></span>
@@ -354,6 +372,7 @@ const Contact = () => {
                   <input 
                     type="text" 
                     id="name" 
+                    name="name"
                     value={formData.name}
                     onChange={handleChange}
                     onFocus={() => handleFocus("name")}
@@ -381,6 +400,7 @@ const Contact = () => {
                   <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     value={formData.email}
                     onChange={handleChange}
                     onFocus={() => handleFocus("email")}
@@ -401,6 +421,7 @@ const Contact = () => {
                   <input 
                     type="text" 
                     id="subject" 
+                    name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     onFocus={() => handleFocus("subject")}
@@ -424,6 +445,7 @@ const Contact = () => {
                 <div className="relative">
                   <textarea 
                     id="message" 
+                    name="message"
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}

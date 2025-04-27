@@ -203,44 +203,48 @@ const Header = () => {
             <nav className="w-full max-w-sm px-6">
               <ul className="flex flex-col items-center justify-center gap-8">
                 {navItems.map((item, index) => (
-                  <motion.li 
+                  <li 
                     key={index}
-                    custom={index}
+                    className="w-full text-center"
+                  >
+                    <motion.div
+                      custom={index}
+                      variants={menuItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                    >
+                      <Link 
+                        href={item.path}
+                        className={`block text-white text-xl py-2 font-heading hover:text-gold transition-colors duration-300 ${
+                          location === item.path ? "text-gold" : ""
+                        }`}
+                        onClick={closeMenu}
+                      >
+                        <span className="text-gold font-mono text-sm opacity-75 mr-2">0{index + 1}.</span>
+                        {item.name}
+                      </Link>
+                    </motion.div>
+                  </li>
+                ))}
+                <li className="w-full text-center">
+                  <motion.div
+                    custom={navItems.length}
                     variants={menuItemVariants}
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="w-full text-center"
                   >
-                    <Link 
-                      href={item.path}
-                      className={`block text-white text-xl py-2 font-heading hover:text-gold transition-colors duration-300 ${
-                        location === item.path ? "text-gold" : ""
-                      }`}
-                      onClick={closeMenu}
+                    <a 
+                      href="/zainiarf_resume.pdf" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-block font-mono text-base py-3 px-8 border border-gold text-gold rounded-full hover:bg-gold hover:bg-opacity-10 transition-all duration-300"
                     >
-                      <span className="text-gold font-mono text-sm opacity-75 mr-2">0{index + 1}.</span>
-                      {item.name}
-                    </Link>
-                  </motion.li>
-                ))}
-                <motion.li
-                  custom={navItems.length}
-                  variants={menuItemVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="w-full text-center"
-                >
-                  <a 
-                    href="/zainiarf_resume.pdf" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-block font-mono text-base py-3 px-8 border border-gold text-gold rounded-full hover:bg-gold hover:bg-opacity-10 transition-all duration-300"
-                  >
-                    Resume
-                  </a>
-                </motion.li>
+                      Resume
+                    </a>
+                  </motion.div>
+                </li>
               </ul>
             </nav>
 

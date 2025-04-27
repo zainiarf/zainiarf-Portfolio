@@ -44,11 +44,11 @@ const Home = () => {
           <p className="hero-3 text-slate-light text-lg sm:text-xl max-w-xl mb-12 opacity-0">
             Bachelor of Law and Technology enthusiast specializing in creating digital experiences that combine legal expertise with cutting-edge technology solutions.
           </p>
-          <Link href="/projects">
-            <a className="hero-4 inline-block font-mono py-4 px-8 border-2 border-gold text-gold rounded hover:bg-gold hover:bg-opacity-10 transition-all duration-300 opacity-0">
+          <div className="hero-4 opacity-0">
+            <Link href="/projects" className="inline-block font-mono py-4 px-8 border-2 border-gold text-gold rounded hover:bg-gold hover:bg-opacity-10 transition-all duration-300">
               Check out my work!
-            </a>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
       
