@@ -63,12 +63,10 @@ const Header = () => {
       } ${hideNav ? "-translate-y-full" : "translate-y-0"}`}
     >
       <div className="max-w-6xl mx-auto flex justify-between items-center">
-        <Link href="/">
-          <a className="text-2xl font-heading font-bold text-white hover:text-gold transition-colors duration-300 cursor-pointer group inline-block">
-            <span className="text-accent font-mono text-xl mr-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">&lt;</span>
-            zainiarf
-            <span className="text-accent font-mono text-xl ml-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">/&gt;</span>
-          </a>
+        <Link href="/" className="text-2xl font-heading font-bold text-white hover:text-gold transition-colors duration-300 cursor-pointer group inline-block">
+          <span className="text-accent font-mono text-xl mr-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">&lt;</span>
+          zainiarf
+          <span className="text-accent font-mono text-xl ml-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">/&gt;</span>
         </Link>
         
         {/* Desktop Navigation */}
@@ -76,12 +74,13 @@ const Header = () => {
           <ul className="flex items-center gap-8">
             {navItems.map((item, index) => (
               <li key={index}>
-                <Link href={item.path}>
-                  <a className={`nav-link text-slate hover:text-white relative pb-1 transition-colors duration-300 ${
+                <Link 
+                  href={item.path}
+                  className={`nav-link text-slate hover:text-white relative pb-1 transition-colors duration-300 ${
                     location === item.path ? "active text-white" : ""
-                  }`}>
-                    {item.name}
-                  </a>
+                  }`}
+                >
+                  {item.name}
                 </Link>
               </li>
             ))}
@@ -127,13 +126,12 @@ const Header = () => {
           <ul className="flex flex-col items-center justify-center gap-8">
             {navItems.map((item, index) => (
               <li key={index}>
-                <Link href={item.path}>
-                  <a 
-                    className="text-white text-xl hover:text-gold transition-colors duration-300"
-                    onClick={closeMenu}
-                  >
-                    {item.name}
-                  </a>
+                <Link 
+                  href={item.path}
+                  className="text-white text-xl hover:text-gold transition-colors duration-300"
+                  onClick={closeMenu}
+                >
+                  {item.name}
                 </Link>
               </li>
             ))}
