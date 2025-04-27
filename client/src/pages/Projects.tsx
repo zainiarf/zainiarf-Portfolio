@@ -311,17 +311,22 @@ const Projects = () => {
           
           <div className="flex flex-wrap gap-2 mb-10">
             {projectCategories.map((category) => (
-              <button
+              <motion.button
                 key={category.id}
                 onClick={() => handleCategoryChange(category.id)}
-                className={`px-4 py-1.5 rounded-full transition-all duration-300 text-sm ${
+                className={`px-4 py-1.5 rounded-full transition-all duration-300 text-sm mobile-touch-feedback ${
                   activeCategory === category.id
                     ? "bg-gold text-navy shadow-lg font-medium"
                     : "bg-navy-light text-slate-light hover:bg-navy-dark hover:text-gold"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 {category.label}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -376,16 +381,24 @@ const Projects = () => {
           ))}
         </div>
         
-        {/* Mobile-optimized show more button */}
+        {/* Mobile-optimized show more button with animations */}
         {visibleProjects < filteredProjects.length && (
           <div className="text-center mt-10">
-            <button 
+            <motion.button 
               onClick={handleShowMore}
-              className="font-mono py-3 px-6 border border-gold text-gold rounded-full hover:bg-gold hover:bg-opacity-10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50"
+              className="font-mono py-3 px-6 border-2 border-gold text-gold rounded-full hover:bg-gold hover:bg-opacity-10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50 mobile-touch-feedback shadow-md"
               aria-label="Show more projects"
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Show More Projects
-            </button>
+              <span className="flex items-center gap-2">
+                <span>Show More Projects</span>
+                <FaFolder className="text-gold text-sm" />
+              </span>
+            </motion.button>
           </div>
         )}
       </div>

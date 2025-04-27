@@ -168,13 +168,13 @@ const About = () => {
           About Me
         </h2>
         
-        {/* Interactive tabs */}
+        {/* Interactive tabs with mobile touch feedback */}
         <div className="flex flex-wrap space-x-2 mb-10">
           {tabItems.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-2 rounded-full transition-all duration-300 font-heading font-medium text-sm md:text-base mb-2 ${
+              className={`px-5 py-2 rounded-full transition-all duration-300 font-heading font-medium text-sm md:text-base mb-2 mobile-touch-feedback ${
                 activeTab === tab.id
                   ? "bg-gold text-navy shadow-lg"
                   : "bg-navy-light text-slate-light hover:bg-navy-dark hover:text-gold"
@@ -262,7 +262,7 @@ const About = () => {
               <div className="absolute -bottom-4 -right-4 border-2 border-gold w-full h-full rounded-md transition-all duration-300 group-hover:-bottom-2 group-hover:-right-2"></div>
             </div>
             
-            {/* Mobile-friendly skills chips */}
+            {/* Mobile-friendly skills chips with touch feedback */}
             <div className="mt-8 flex flex-wrap gap-2 md:hidden">
               {[
                 { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
@@ -272,10 +272,17 @@ const About = () => {
                 { name: "HTML", icon: <SiHtml5 className="text-orange-500" /> },
                 { name: "CSS", icon: <SiCss3 className="text-blue-500" /> }
               ].map((skill, index) => (
-                <div key={index} className="bg-navy-light rounded-full px-3 py-1 flex items-center gap-1">
+                <motion.div 
+                  key={index} 
+                  className="bg-navy-light rounded-full px-3 py-2 flex items-center gap-1.5 mobile-touch-feedback"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   {skill.icon}
                   <span className="text-xs text-slate-light">{skill.name}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
