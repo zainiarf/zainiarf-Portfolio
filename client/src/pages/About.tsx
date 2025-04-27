@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { motion } from "framer-motion";
+
 import { FaLaptopCode, FaGavel, FaGraduationCap, FaAward } from "react-icons/fa";
 import { SiTypescript, SiReact, SiNodedotjs, SiThreedotjs, SiTailwindcss, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
 
@@ -200,64 +200,21 @@ const About = () => {
                 <div className="image-overlay absolute inset-0 bg-gradient-to-tr from-gold bg-opacity-10 mix-blend-overlay transition-all duration-500 rounded-md"></div>
                 
                 {/* Floating tech icons */}
-                <motion.div 
-                  className="absolute -right-8 -top-8 text-2xl text-gold"
-                  animate={{
-                    y: animatedImage ? [0, -10, 0] : 0,
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: animatedImage ? Infinity : 0,
-                    repeatType: "reverse"
-                  }}
-                >
+                <div className="absolute -right-8 -top-8 text-2xl text-gold floating-icon">
                   <SiReact />
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  className="absolute -left-8 top-1/4 text-2xl text-gold"
-                  animate={{
-                    y: animatedImage ? [0, 10, 0] : 0,
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: animatedImage ? Infinity : 0,
-                    repeatType: "reverse",
-                    delay: 0.5
-                  }}
-                >
+                <div className="absolute -left-8 top-1/4 text-2xl text-gold floating-icon-reverse">
                   <SiJavascript />
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  className="absolute -right-6 bottom-1/4 text-2xl text-gold"
-                  animate={{
-                    y: animatedImage ? [0, -15, 0] : 0,
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: animatedImage ? Infinity : 0,
-                    repeatType: "reverse",
-                    delay: 1
-                  }}
-                >
+                <div className="absolute -right-6 bottom-1/4 text-2xl text-gold floating-icon">
                   <SiNodedotjs />
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  className="absolute -left-6 -bottom-6 text-2xl text-gold"
-                  animate={{
-                    y: animatedImage ? [0, 10, 0] : 0,
-                  }}
-                  transition={{
-                    duration: 2.2,
-                    repeat: animatedImage ? Infinity : 0,
-                    repeatType: "reverse",
-                    delay: 0.7
-                  }}
-                >
+                <div className="absolute -left-6 -bottom-6 text-2xl text-gold floating-icon-reverse">
                   <FaGavel />
-                </motion.div>
+                </div>
               </div>
               <div className="absolute -bottom-4 -right-4 border-2 border-gold w-full h-full rounded-md transition-all duration-300 group-hover:-bottom-2 group-hover:-right-2"></div>
             </div>
@@ -272,17 +229,14 @@ const About = () => {
                 { name: "HTML", icon: <SiHtml5 className="text-orange-500" /> },
                 { name: "CSS", icon: <SiCss3 className="text-blue-500" /> }
               ].map((skill, index) => (
-                <motion.div 
+                <div 
                   key={index} 
-                  className="bg-navy-light rounded-full px-3 py-2 flex items-center gap-1.5 mobile-touch-feedback"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="bg-navy-light rounded-full px-3 py-2 flex items-center gap-1.5 skill-chip mobile-touch-feedback"
+                  style={{animationDelay: `${index * 0.1}s`}}
                 >
                   {skill.icon}
                   <span className="text-xs text-slate-light">{skill.name}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
