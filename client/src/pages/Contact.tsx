@@ -545,20 +545,16 @@ const Contact = () => {
                       { icon: <FaTwitter />, label: "Twitter", url: "#" },
                       { icon: <FaInstagram />, label: "Instagram", url: "#" }
                     ].map((social, index) => (
-                      <motion.a 
+                      <a 
                         key={index}
                         href={social.url} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="bg-navy-dark p-2 rounded-full text-white hover:text-gold transition-all duration-300"
+                        className="bg-navy-dark p-2 rounded-full text-white hover:text-gold hover:translate-y-[-5px] hover:bg-opacity-20 hover:bg-gold transition-all duration-300 inline-block"
                         aria-label={social.label}
-                        whileHover={{ 
-                          y: -5,
-                          backgroundColor: "rgba(255, 215, 0, 0.2)"
-                        }}
                       >
                         {social.icon}
-                      </motion.a>
+                      </a>
                     ))}
                   </div>
                 </div>
