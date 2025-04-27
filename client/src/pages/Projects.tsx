@@ -310,39 +310,32 @@ const Projects = () => {
           </h3>
           
           <div className="flex flex-wrap gap-2 mb-10">
-            {projectCategories.map((category) => (
-              <motion.button
+            {projectCategories.map((category, idx) => (
+              <button
                 key={category.id}
                 onClick={() => handleCategoryChange(category.id)}
-                className={`px-4 py-1.5 rounded-full transition-all duration-300 text-sm mobile-touch-feedback ${
+                className={`px-4 py-1.5 rounded-full transition-all duration-300 text-sm mobile-touch-feedback filter-button ${
                   activeCategory === category.id
                     ? "bg-gold text-navy shadow-lg font-medium"
                     : "bg-navy-light text-slate-light hover:bg-navy-dark hover:text-gold"
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                style={{animationDelay: `${idx * 0.1}s`}}
               >
                 {category.label}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
         
         <div ref={otherRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.slice(0, visibleProjects).map((project, index) => (
-            <motion.div 
+            <div 
               key={index}
-              ref={el => projectRefs.current[index] = el}
-              className="bg-navy-light rounded-lg p-6 shadow-lg project-card opacity-0 h-full"
+              ref={(el: HTMLDivElement | null) => projectRefs.current[index] = el}
+              className="bg-navy-light rounded-lg p-6 shadow-lg project-card h-full"
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-50px" }}
+              style={{animationDelay: `${index * 0.1}s`}}
             >
               <div className="flex justify-between items-center mb-6">
                 <div className="text-3xl">
@@ -377,28 +370,24 @@ const Projects = () => {
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
         
         {/* Mobile-optimized show more button with animations */}
         {visibleProjects < filteredProjects.length && (
           <div className="text-center mt-10">
-            <motion.button 
+            <button 
               onClick={handleShowMore}
-              className="font-mono py-3 px-6 border-2 border-gold text-gold rounded-full hover:bg-gold hover:bg-opacity-10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50 mobile-touch-feedback shadow-md"
+              className="font-mono py-3 px-6 border-2 border-gold text-gold rounded-full hover:bg-gold hover:bg-opacity-10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50 mobile-touch-feedback shadow-md hover:transform hover:scale-105 hover:-translate-y-1 filter-button"
               aria-label="Show more projects"
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.95, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              style={{animationDelay: '0.5s'}}
             >
               <span className="flex items-center gap-2">
                 <span>Show More Projects</span>
                 <FaFolder className="text-gold text-sm" />
               </span>
-            </motion.button>
+            </button>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { motion } from "framer-motion";
+
 import { 
   FaEnvelope, 
   FaMapMarkerAlt, 
@@ -321,35 +321,17 @@ const Contact = () => {
       ))}
       
       <div ref={ref} className="max-w-5xl mx-auto w-full text-center relative z-10">
-        <motion.p 
-          className="contact-content text-gold font-mono mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
+        <p className="contact-content text-gold font-mono mb-4 animate-fade-in" style={{animationDelay: '0.1s'}}>
           04. What's Next?
-        </motion.p>
+        </p>
         
-        <motion.h2 
-          className="contact-content text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          viewport={{ once: true }}
-        >
+        <h2 className="contact-content text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 animate-fade-in" style={{animationDelay: '0.2s'}}>
           Get In Touch
-        </motion.h2>
+        </h2>
         
-        <motion.p 
-          className="contact-content text-slate-light max-w-2xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
+        <p className="contact-content text-slate-light max-w-2xl mx-auto mb-12 animate-fade-in" style={{animationDelay: '0.3s'}}>
           I'm currently looking for new opportunities where I can combine my legal background with my passion for technology. Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
-        </motion.p>
+        </p>
         
         <div className="grid md:grid-cols-2 gap-10 text-left">
           <div className="contact-form order-2 md:order-1">
@@ -466,18 +448,15 @@ const Contact = () => {
                 </div>
               </div>
               
-              <motion.button 
+              <button 
                 type="submit" 
-                className="w-full font-mono py-3 px-6 border-2 rounded-md flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-70"
+                className={`w-full font-mono py-3 px-6 border-2 rounded-md flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-70 mobile-touch-feedback
+                  ${submitStatus === "idle" ? "border-gold text-gold hover:bg-gold hover:bg-opacity-10" : ""}
+                  ${submitStatus === "loading" ? "border-gold bg-opacity-10 bg-gold text-gold" : ""}
+                  ${submitStatus === "success" ? "border-green-500 bg-green-500 bg-opacity-20 text-green-500" : ""}
+                  ${submitStatus === "error" ? "border-red-500 bg-red-500 bg-opacity-20 text-red-500" : ""}
+                `}
                 disabled={isSubmitting}
-                variants={submitButtonVariants}
-                initial="idle"
-                animate={submitStatus}
-                whileHover={{ 
-                  backgroundColor: submitStatus === "idle" ? "rgba(255, 215, 0, 0.1)" : undefined,
-                  y: -2 
-                }}
-                whileTap={{ y: 0 }}
               >
                 {submitStatus === "loading" && <FaSpinner className="animate-spin" />}
                 {submitStatus === "success" && <FaCheck />}
@@ -489,7 +468,7 @@ const Contact = () => {
                   {submitStatus === "error" && "Failed to Send"}
                   {submitStatus === "idle" && "Send Message"}
                 </span>
-              </motion.button>
+              </button>
             </form>
           </div>
           
@@ -498,11 +477,7 @@ const Contact = () => {
               <h3 className="text-xl font-heading font-semibold text-white mb-6">Contact Information</h3>
               
               <div className="space-y-6">
-                <motion.div 
-                  className="flex items-start"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="flex items-start contact-item hover:translate-x-1 transition-transform duration-300">
                   <div className="text-gold mr-4 mt-1">
                     <FaEnvelope />
                   </div>
@@ -516,13 +491,9 @@ const Contact = () => {
                       hello@zainiarf.com
                     </a>
                   </div>
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  className="flex items-start"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="flex items-start contact-item hover:translate-x-1 transition-transform duration-300">
                   <div className="text-gold mr-4 mt-1">
                     <FaMapMarkerAlt />
                   </div>
@@ -530,13 +501,9 @@ const Contact = () => {
                     <p className="font-mono text-sm text-slate mb-1">Location</p>
                     <p className="text-white">Jakarta, Indonesia</p>
                   </div>
-                </motion.div>
+                </div>
                 
-                <motion.div 
-                  className="flex items-start"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="flex items-start contact-item hover:translate-x-1 transition-transform duration-300">
                   <div className="text-gold mr-4 mt-1">
                     <FaPhoneAlt />
                   </div>
@@ -550,7 +517,7 @@ const Contact = () => {
                       (+62) 812-3456-7890
                     </a>
                   </div>
-                </motion.div>
+                </div>
                 
                 {/* Map visualization - mobile friendly */}
                 <div className="pt-4 relative">
