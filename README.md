@@ -131,8 +131,8 @@ Didistribusikan di bawah Lisensi MIT. Lihat `LICENSE` untuk informasi lebih lanj
 
 ## 📞 Kontak
 
-Zainiarf - [hello@zainiarf.com](mailto:hello@zainiarf.com)
+Zainiarf - [zainiarfm@gmail.com](mailto:zainiarfm@gmail.com)
 
 ---
 
-Dibuat dengan ❤️ oleh Zainiarf
+made by zainiarf 2025

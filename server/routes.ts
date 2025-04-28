@@ -24,7 +24,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Email template to admin
       const mailOptions = {
         from: process.env.EMAIL_USER || "user@example.com",
-        to: "hello@zainiarf.com", // Admin email
+        to: "zainiarfm@gmail.com", // Admin email
         subject: `Contact Form: ${contactData.subject || "New Message"}`,
         html: `
           <h1>New Contact Form Submission</h1>

@@ -360,7 +360,7 @@ const Contact = () => {
                     onFocus={() => handleFocus("name")}
                     onBlur={() => handleBlur("name")}
                     className={`w-full bg-navy border rounded-md py-3 pl-10 pr-4 text-white focus:outline-none transition-all duration-300 ${getFieldAnimationClass("name")}`}
-                    placeholder="John Doe"
+                    placeholder="Name"
                     required
                   />
                   <span className="absolute left-3 top-3.5 text-gold">
@@ -388,7 +388,7 @@ const Contact = () => {
                     onFocus={() => handleFocus("email")}
                     onBlur={() => handleBlur("email")}
                     className={`w-full bg-navy border rounded-md py-3 pl-10 pr-4 text-white focus:outline-none transition-all duration-300 ${getFieldAnimationClass("email")}`}
-                    placeholder="johndoe@example.com"
+                    placeholder="youremail@example.com"
                     required
                   />
                   <span className="absolute left-3 top-3.5 text-gold">
@@ -488,7 +488,7 @@ const Contact = () => {
                       className="text-white hover:text-gold transition-colors duration-300 flex items-center" 
                       aria-label="Email hello@zainiarf.com"
                     >
-                      hello@zainiarf.com
+                      zainiarfm@gmail.com
                     </a>
                   </div>
                 </div>
@@ -499,7 +499,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-mono text-sm text-slate mb-1">Location</p>
-                    <p className="text-white">Jakarta, Indonesia</p>
+                    <p className="text-white">Banjarmasin, Indonesia</p>
                   </div>
                 </div>
                 
@@ -525,7 +525,7 @@ const Contact = () => {
                     <div className="absolute inset-0 bg-navy-dark opacity-30 z-10 pointer-events-none"></div>
                     <iframe
                       title="Location Map"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253840.65086637408!2d106.68942494803341!3d-6.229728025971202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x100c5e82dd4b820!2sJakarta%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1650338711010!5m2!1sen!2sid"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127633.99969768554!2d114.53351915!3d-3.3202242999999965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de4227c6585b5e5%3A0x1012ef26c13ec32e!2sBanjarmasin%2C%20Kota%20Banjarmasin%2C%20Kalimantan%20Selatan!5e0!3m2!1sen!2sid!4v1714284930000!5m2!1sen!2sid"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -570,7 +570,7 @@ const Contact = () => {
                 <FaPhoneAlt /> Call
               </a>
               <a
-                href="mailto:hello@zainiarf.com"
+                href="mailto:zainiarfm@gmail.com"
                 className="flex items-center gap-2 bg-navy-light px-4 py-2 rounded-full text-white hover:bg-gold hover:text-navy transition-all duration-300"
               >
                 <FaEnvelope /> Email

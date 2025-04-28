@@ -11,27 +11,27 @@ gsap.registerPlugin(ScrollTrigger);
 // Timeline items for the journey section
 const timelineItems = [
   {
-    year: "2018",
-    title: "Started Law School",
-    description: "Began my journey in legal studies, focusing on technology law and digital rights.",
+    year: "2017",
+    title: "Started school at Banjarmasin State Senior High School 3.",
+    description: "Began my journey in senior high school studies, focusing on technology and digital rights.",
     icon: <FaGraduationCap className="text-gold text-xl" />,
   },
   {
-    year: "2019",
+    year: "2017",
     title: "First Coding Project",
-    description: "Built my first web application while participating in a legal tech hackathon.",
+    description: "Developing an AI program integrated into the Line chat app.",
     icon: <FaLaptopCode className="text-gold text-xl" />,
   },
   {
-    year: "2021",
+    year: "2024",
     title: "Bachelor's Degree in Law",
     description: "Graduated with honors, with a thesis on legal implications of blockchain technology.",
     icon: <FaGavel className="text-gold text-xl" />,
   },
   {
-    year: "2022",
+    year: "2025",
     title: "Legal Tech Developer",
-    description: "Started combining legal expertise with programming skills professionally.",
+    description: "Started combining legal expertise with programming skills, and still learning.",
     icon: <FaAward className="text-gold text-xl" />,
   }
 ];
@@ -246,7 +246,7 @@ const About = () => {
             {activeTab === "background" && (
               <>
                 <p>
-                  Hello! I'm <span className="text-gold">zainiarf</span>, a Bachelor of Law graduate with a passion for technology and web development. My journey began during my law studies when I realized the growing intersection between legal frameworks and digital innovation, which led me to explore coding and web technologies.
+                  Hello! I'm <span className="text-gold">Muhammad Zaini Arifin</span>, a Bachelor of Law graduate with a passion for technology and web development. My journey began during my law studies when I realized the growing intersection between legal frameworks and digital innovation, which led me to explore coding and web technologies.
                 </p>
                 <p>
                   I enjoy bridging the gap between legal knowledge and technological solutions, creating applications that address compliance issues, automate legal processes, and make legal information more accessible to everyone.

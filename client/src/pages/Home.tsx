@@ -38,7 +38,7 @@ const Home = () => {
             Hi, my name is
           </p>
           <h1 className="hero-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-4 opacity-0">
-            <span className="block text-white">zainiarf.</span>
+            <span className="block text-white">Muhammad Zaini Arifin, S.H.</span>
             <span className="block text-slate mt-2">I build things for the web.</span>
           </h1>
           <p className="hero-3 text-slate-light text-lg sm:text-xl max-w-xl mb-12 opacity-0">
@@ -62,7 +62,7 @@ const Home = () => {
             href="mailto:hello@zainiarf.com" 
             className="font-mono text-slate hover:text-gold writing-vertical-rl transform hover:-translate-y-[5px] transition-all duration-300 opacity-0 animate-fade-in delay-5"
           >
-            hello@zainiarf.com
+            zainiarfm@gmail.com
           </a>
         </div>
       </div>
